@@ -74,12 +74,21 @@ The http module implementation is excluded from version control to prevent unnec
 
 # .gitignore
 node_modules/
+
 http/
-Comments on Status Codes
-200 OK: Indicates that the request has succeeded. The response body will contain the data requested, or a message indicating that the operation was successful.
-400 Bad Request: This status code indicates that the server could not process the request due to a client error. This may be due to invalid data or a malformed request.
-404 Not Found: This code is used when the requested route or resource could not be found on the server. It is important to provide a meaningful response, such as a "Page not found" message.
-Code Snippet: Using Express.js and HTTP Status Codes
+
+Comments on Status Codes:
+
+200 OK: Indicates that the request has succeeded. 
+The response body will contain the data requested, or a message indicating that the operation was successful.
+
+400 Bad Request: This status code indicates that the server could not process the request due to a client error. 
+This may be due to invalid data or a malformed request.
+
+404 Not Found: This code is used when the requested route or resource could not be found on the server.
+It is important to provide a meaningful response, such as a "Page not found" message.
+
+# Code Snippet: Using Express.js and HTTP Status Codes
 
 # Contribution
 If you'd like to contribute to this project, feel free to fork the repository and submit pull requests. Please make sure to follow the project structure and adhere to the conventions used in the code.
