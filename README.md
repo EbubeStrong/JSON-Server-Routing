@@ -55,17 +55,23 @@ This will run the server using nodemon (if installed globally or locally), which
 
 # API Endpoints
 GET /success
+
 Response:
+
 json
 { "status": "success", "message": "Welcome to the home page!" }
 
 GET /error
+
 Response (400 Bad Request):
+
 json
 { "status": "error", "message": "Bad request. Something went wrong." }
 
 GET /
+
 Response (404 Not Found):
+
 json
 { "status": "error", "message": "Page not found" }
 
