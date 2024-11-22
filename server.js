@@ -2,30 +2,40 @@
 
 import { createServer } from 'http'
 import url from 'url'
-const PORT = 8000
+import dotenv from 'dotenv'
+dotenv.config()
 
-const server = createServer((req, res) => { 
-    try {
-        if(req.url === '/success') { 
-            res.writeHead(202, { 'Content-Type': 'application/json' })
-            res.end(JSON.stringify({ message: 'This page is Successful' }))
-        }
-        else if(req.url === '/error' ){
-            res.writeHead(500, {
-                'Content-Type': 'application/json'
-            })
-            res.end(JSON.stringify({
-                message: 'Something went wrong, try another route.'
-            }))
-        }
-        else {
-            res.writeHead(404, { 'Content-Type': 'application/json' })
-            res.end(JSON.stringify({ message: 'Not Found' }))
-        }
-    } catch (error) {
-        throw new Error('Method not allowed')
-        console.log(error)
+const PORT = process.env.PORT
+
+const server = createServer((req, res) => {
+  // Parsing of the URL to get the pathname
+  const parsedUrl = url.parse(req.url, true);
+  const pathname = parsedUrl.pathname;
+
+  try {
+    if (pathname === "/success") {
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ message: "This page is Successful" }));
+    } else if (pathname === "/error") {
+      res.writeHead(500, {
+        "Content-Type": "application/json",
+      });
+      res.end(
+        JSON.stringify({
+          message: "Something went wrong, try another route.",
+        })
+      );
+    } else {
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ message: "Not Found" }));
     }
+  } catch (error) {
+    // Returning a 500 response for handling unexpected errors
+    res.writeHead(500, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ message: "Internal Server Error" }));
+    console.error("An error occured:", error.message);
+    console.error("An error occured:", error.message);
+  }
 })
 
 server.listen(PORT, () => { 

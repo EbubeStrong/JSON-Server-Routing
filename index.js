@@ -1,43 +1,31 @@
-// Using of Express Js  using try and catch method to create a server and handle different routes
+// Using of express.js to return JSON Responses and Status Codes
 
-import { createServer } from 'http'
-import express from 'express'
+// Importing of express.js
+import express from "express";
 
-const app = express()
-app.use(express.json())
+// Import of dotenv to be used because of the .env file
+import dotenv from 'dotenv'
+const app = express();
 
-const server = createServer(app)
+dotenv.config()
+const PORT = process.env.PORT;
 
-try{
-    app.get('/success', (req, res) => { 
-        res.status(202).json({ message: 'This page is Successful' })
-    })
-}
-catch(err){
-    console.log(err)
-}
+// Route for "/success"
+app.get("/success", (req, res) => {
+  res.status(200).json({ message: "This page is Successful" });
+});
 
-try {
-    app.get("/error", (req, res) => {
-      res
-        .status(500)
-        .json({ message: "Something went wrong, try another route." });
-    });
+// Route for "/error"
+app.get("/error", (req, res) => {
+  res.status(500).json({ message: "Something went wrong, try another route." });
+});
 
-} catch (error) {
-    console.log(error);
-}
+// Falling back to a not found route for unmatched paths
+app.use((req, res) => {
+  res.status(404).json({ message: "Not Found" });
+});
 
-try {
-    app.get((req, res) => {
-        res.status(404).json({ message: 'Not Found' })
-    })
-} catch (error) { 
-    console.log(error);
-}
-
-
-
-server.listen(3000, () => { 
-    console.log('Server is running on port 3000')
-})
+// Starting of the server
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
